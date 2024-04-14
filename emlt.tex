@@ -1,0 +1,1658 @@
+\documentclass[12pt]{article}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} 
+\usepackage[dvips,letterpaper,margin=1in,bottom=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtx}
+\usepackage{upgreek}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{hyperxmp}
+\usepackage{enumitem}%
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\sun}{SU (n)}
+\newcommand{\son}{SO (n, \R)}
+\newcommand{\Om}{\Omega}
+\newcommand{\V}{\Vert}
+\newcommand{\ihat}{\boldsymbol{\hat{\textbf{\i}}}}
+\newcommand{\jhat}{\boldsymbol{\hat{\textbf{\j}}}}
+\newcommand{\khat}{\boldsymbol{\hat{\textbf{k}}}}
+\newcommand{\heart}{\ensuremath\varheartsuit}
+
+\renewcommand\cftsecfont{\selectfont\mdseries}
+\renewcommand\cftsecpagefont{\mdseries}
+\renewcommand\cfttoctitlefont{\Large\fontfamily{phv}\selectfont\textbf}
+\renewcommand{\contentsname}{Contents.}
+\newcommand{\hruleafter}[1]{#1\hrule}
+
+\titlespacing\section{0pt}{12pt}{-20pt}
+\titlespacing\subsection{0pt}{12pt}{6pt}
+\titleformat{\section}
+{\normalfont\Large\bfseries\fontfamily{phv}\selectfont}{\thesection}{1em}{\hruleafter}
+\titleformat{\subsection}
+{\normalfont\large\bfseries\fontfamily{phv}\selectfont}{\thesubsection}{1em}{}
+
+\newtheorem{them}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{prop}[them]{Proposition}
+\theoremstyle{definition}
+\newtheorem{cor}[them]{Corollary}
+\theoremstyle{definition}
+\newtheorem{lem}[them]{Lemma}
+\theoremstyle{definition}
+\newtheorem{rmk}[them]{Remark}
+\theoremstyle{definition}
+\newtheorem{defn}[them]{Definition}
+\theoremstyle{definition}
+\newtheorem{ex}[them]{Example}
+\theoremstyle{definition}
+\newtheorem{nex}[them]{Non-example}
+\theoremstyle{definition}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{0pt}
+
+\title{Elementary Matrix Lie Theory.}
+\author{Samuel Harshe}
+
+\begin{document}
+
+\makeatletter
+\begin{titlepage}
+    \begin{center}
+        \vspace*{2.5in}
+        {\fontfamily{phv}\selectfont \huge
+        \bfseries \@title}\\
+        \vspace*{2.5in}
+        \onehalfspacing%
+        \@author\\
+        Yale University\\
+        Professor Igor Frenkel\\
+        MATH 480: \textit{Mathematical Topics} \\
+        \today \\
+    \end{center}
+\end{titlepage}
+
+\onehalfspacing%
+\tableofcontents
+\vspace{6pt}
+\noindent\rule{\textwidth}{0.5pt}
+
+\vspace{-16pt}
+\section{Introduction.}
+\par{Before we go nose to grindstone and deal
+carefully with the details of Lie groups and Lie
+algebras, it merits sketching the goal of this
+paper both to motivate the preliminary results
+and to allow readers to try to anticipate
+significant connections as they go. We therefore
+begin with the most important definition: a
+\textbf{Lie group} is a group with smooth
+composition and inversion maps that is also a
+smooth manifold. All of this structure makes Lie
+groups very nice to work with. We construct a
+tangent space at the identity of the group, endow
+it with a multiplication, and call it the
+\textbf{Lie algebra}. We can then define a map
+thats recovers much of the group structure from
+the algebra. This means we can do much of our work
+on the algebra (which, conveniently, is linear)
+instead of on the group, partially reducing group
+operation to a much simpler linear algebra
+problem.} 
+
+\section{Smooth manifolds.}
+
+\par{Perhaps surprisingly, much Lie theory can be
+covered without explicitly using manifolds. This
+is done through matrix Lie groups. Since there is
+is more than enough matrix Lie theory to fill two
+lectures, and I believe it is the quickest and
+most intuitive way to cover ground, matrices are
+the idiom of most of this paper. However, it would
+be wrong to leave manifolds completely out of the
+picture. We will therefore begin with smooth
+manifolds and prove a connection to matrix Lie
+groups before leaving them in the background for
+the rest of the paper. A significant result toward
+the end establishes the limit of this approach.}
+
+\subsection{Topological definitions.}
+
+\par{We collect several preliminary definitions
+pertinent to smooth manifolds (§5.1
+in~\cite{Tu}).}
+
+\begin{itemize}[noitemsep,topsep=0pt]
+\item {A set $X$ equipped with a function
+$\mathcal{N}(x)$ that assigns to each $x \in X$ a
+nonempty collection of subsets $\{N\}$ (called
+\textbf{neighborhoods} of $x$) is a
+\textbf{topological space} if it satisfies the
+following four axioms.
+\begin{enumerate}[noitemsep,topsep=0pt]
+\item {Each point $x \in X$  belongs to each
+of its neighborhoods.}
+\item {Each superset of a neighborhood of $x$
+is also a neighborhood of $x$.}
+\item {The intersection of any two
+neighborhoods of $x$ is a neighborhood of
+$x$.}
+\item {Any neighborhood $N$ contains a
+subneighborhood $M$ such that $N$ is a
+    neighborhood of each point in $M$.}
+\end{enumerate}}
+\item {A set is \textbf{open} if it contains a
+neighborhood of each point.} 
+\item {The \textbf{basis} of a topological space
+$M$ is some family $\mathcal{B}$ of open subsets
+such that every open set in $M$ can be generated
+by taking the union of some some sub-family of
+$\mathcal{B}$.}
+\item {A topological space is \textbf{second countable}
+if it has a countable basis.}
+\item {A \textbf{Hausdorff space} is a topological
+space $M$ where $\forall x, y \in M$, $\exists
+U_x, U_y$, neighborhoods of $x$ and $y$, such that
+$U_x \cap U_y = \emptyset$.}
+\item {A \textbf{homemorphism} is a continuous
+bijection between topological spaces with a
+continuous inverse.}
+\item {A \textbf{open cover} of $M$ is a
+collection of open sets in ${U_a}$ whose union
+$\cup U_a = M$.}
+\item {A space is \textbf{locally Euclidean of
+dimension $n$} if every point has a neighborhood
+homeomorphic to an open subset of $\R^n$.}
+\item {A \textbf{chart} is a neighborhood $U$ of a
+point $p$ together with a homeomorphism $\phi: U
+\to V$ for an open subset $V$ of $\R^n$. The chart
+is written as the pair $(U, \phi)$}.
+\item {A function is \textbf{smooth} if it is $C^\infty$.}
+\end{itemize}
+
+\subsection{Topological manifolds.}
+\par{§5.1 in~\cite{Tu}.}
+\begin{defn}
+    We simply concatenate several definitions to
+    define a \textbf{topological manifold of
+    dimension \textit{n}}: a Hausdorff, second
+    countable, locally Euclidean space of
+    dimension $n$. Intuitively, this means that if
+    you are standing on a topological manifold
+    with terrible eyesight, as far as you can
+    tell, you are standing in $\R^n$. We also
+    require a few topological properties that make
+    the manifold nicer to deal with.
+\end{defn}
+
+\begin{rmk}
+    Note that we require each neighborhood on a
+    manifold to be homeomorphic to an open subset
+    of $\R^n$. An object with some neighborhoods
+    homeomorphic to open subsets of $\mathbb{H}^n$
+    but not $\R^n$ is called a \textbf{manifold
+    with boundary}, which we will not consider a
+    manifold.
+\end{rmk}
+
+    
+\begin{ex}
+    Two nonintersecting open line segments $M =
+    \{(x,0): x \in (-1,0) \cup (0,1)\}$ form a
+    $1$-manifold in $\R^2$. Note that no part of
+    the definition requires the manifold to be
+    connected. Here, we have two components, each
+    locally homeomorphic to an open neighborhood
+    of $\R^1$.
+\end{ex}
+
+\par{We will prove an non-example of a manifold, but first, we need a lemma.}
+
+\begin{lem} Homeomorphisms preserve connected
+components.\end{lem}
+
+\begin{proof}
+    \par{Let $X$ and $Y$ be topological manifolds
+    and $X = \cup X_i$ and $Y = \cup Y_j$ be their
+    decompositions into their connected
+    components. Let $f: X \to Y$ be a
+    homeomorphism. Because $f$ is a homeomorphism,
+    $f$ is continuous, so $f(X_i)$ is connected.
+    Therefore, $f(X_i) \subseteq Y_j$ for some
+    $Y_j$. Now because $f$ is a homeomorphism,
+    $f^{-1}$ is continuous, so $f^{-1}(Y_j)$ is
+    connected. Also, as long as $X_i$ is nonempty,
+    $f^{-1}(Y_j) \cap X_i \neq \emptyset$.
+    Therefore, $f^{-1}(Y_j) \subseteq X_i$}, since
+    $X_i$ is connected. Applying $f$ to both sides
+    yields $Y_j \subseteq f(X_i)$, completing the
+    proof that $f(X_i) = Y_j$.
+\end{proof}
+
+\begin{nex} The unit cross in $\R^2$,
+    $M = \{(x,y): x \in (-1,1) \; \&  \; y = 0 \:
+    \cup \: y \in (-1,1) \; \& \; x = 0\}$, is not a
+    topological manifold.
+\end{nex}
+
+\begin{proof}Assume toward contradiction that
+    there exists a local homeomorphism $f: M \to
+    \R^n$ such that $\forall x \in M$, $\exists$ a
+    neighborhood $U \ni x$ such that $f(U)$ is
+    open in $\R^n$ and $f\big|_U$ is a
+    homeomorphism. Let $x = 0$. Then $\exists V$ a
+    neighborhood containing $x$ such that
+    $f\big|_V$ is a homeomorphism. Put $f(V) = Y$.
+    Define $f^\prime$ as the restriction of $f$ to
+    $V \setminus \{0\}$. This is a homeomorphism
+    $V \setminus \{0\} \to Y \setminus \{f(0)\}$
+    because restrictions of homeomorphisms are
+    still homeomorphisms. However, $V \setminus
+    \{0\}$ has $4$ connected components, while $Y
+    \setminus \{f(0)\}$ has $2$ components for $n
+    = 1$ and $1$ component for $f > 1$. Therefore,
+    there exists no homeomorphism $f: M \to \R^n$,
+    so $M$ is not a topological manifold.
+\end{proof}
+
+\subsection{Smooth manifolds.}
+\par{§5.2 and §5.3 in~\cite{Tu}.}
+\begin{defn}
+    Two charts $(U, \phi)$ and $(U, \psi)$ are
+    \textbf{compatible} if $\phi \circ \psi^{-1}$ and
+    $\psi \circ \phi^{-1}$ are both $C^\infty$.
+\end{defn}
+
+\par{In other words, we can start in Euclidean
+space, go up to the manifold via the inverse of
+one map, and come back down via the other map,
+all without trouble.}
+
+\begin{rmk}
+Obvserve that if $U \cap V =
+\emptyset$, then the functions $\phi \circ
+\psi^{-1}$ and $\psi \circ \phi^{-1}$ are
+trivially $C^\infty$, so this definition is only
+restrictive for charts on nondisjoint
+neighborhoods.
+\end{rmk}
+
+\begin{defn}
+An \textbf{atlas} on a topological manifold $M$ is a
+collection $\mathcal{U} = \{(U_a, \phi_a)\}$ of
+pairwise compatible charts such that $\cup
+\{U_a\}$ forms an open cover of $M$.
+\end{defn}
+
+\begin{defn}
+An atlas $(U_a, \phi_a)$ is \textbf{maximal} if it
+is not the proper subset of any atlas on $M$.
+(There is a fair amount of discussion about the
+philosophical status of this definition, but I
+will spare you the details and remark that I have
+never seen it play a crucial part in any
+interesting result. Any atlas admits extension to
+a unique maximal atlas, so we need not worry about
+which maximal atlas to proceed with, allowing this
+requirement to disappear into the background).
+\end{defn}
+
+\par{Finally, our main definition:}
+\begin{defn} A \textbf{smooth
+manifold} is a topological manifold $M$ together
+with a maximal atlas.
+\end{defn}
+
+\begin{ex}
+    \par{Any open subset of the Euclidean space $S
+    \subseteq \R^n$ is a topological manifold with
+    chart $(S, id)$.}
+\end{ex}
+
+\begin{ex}
+The graph of $y = |x|$ in $\R^2$ is also a
+smooth manifold of dimension $1$ with the
+coordinate map $(x, |x|) \mapsto x$. The cusp at
+$x = 0$ does not prevent the graph from being a
+smooth $1$-manifold: the projection down to the
+$x$-axis remains smooth.
+\end{ex}
+
+\begin{ex} The sphere $S^1$ is a $1$-manifold in $\R^2$.
+Define four open neighborhoods $U_+ = \{(x,y) \in
+S^1 : x > 0\}$, $U_{-} = \{(x,y) \in S^1 : x <
+0\}$, $V_+ = \{(x,y) \in S^1 : y > 0\}$, and
+$V_{-} = \{(x,y) \in S^1 : y < 0\}$, with maps
+projecting onto the axis of the variable not
+restricted. Clearly, these neighborhoods cover
+$S^1$, and each is homeomorphic to an open subset
+of $\R^1$.
+\end{ex}   
+
+\par{We define here two basic sets of matrices.}
+
+\begin{defn}
+    $M(n,\K)$ is the set of all $n \times
+    n$ matrices with entries in $\K$.
+\end{defn}
+
+\begin{rmk}
+    From now on, we let $\K = \C$ and elide the
+    field in our definition of matrix groups: we
+    write $M(n)$ instead of $M(n, \C)$, $GL(n)$
+    instead of $GL(n, \C)$, and so on, flagging
+    each case when the field is not $\C$. Most
+    but not all of the results below hold also
+    for real matrices.
+\end{rmk}
+
+\begin{defn}
+    \textbf{$GL(n)$} is the set of all
+    $n \times n$ matrices with nonzero determinant. 
+\end{defn}
+
+\par{To prove the next theorem, we need a lemma:}
+
+\begin{lem}\label{lem:smooth} Any open subset of a smooth manifold
+is a smooth manifold.\end{lem}
+\begin{proof}
+Let $M^\prime$ be an open subset of $M$ and
+$M$ a smooth manifold with atlas $\{(U_a,
+\phi_a)\}$. Then $\{(U_a \cap M^\prime, \phi_a)\}$ is
+an atlas of $M^\prime$, so $M^\prime$ is
+itself a smooth manifold.
+\end{proof}
+
+\begin{them}$GL(n)$ is a smooth $2n^2$
+manifold.\end{them} 
+\begin{proof}
+To begin, we identify $M(n)$ with $\R^{2n^2}$.
+$\R^{2n^2}$ is trivially a smooth manifold: take
+atlas $\{(\R^{2n^2}, id)\}$. Thus, $M(n)$ is a
+smooth manifold. The determinant $\det: GL(n) \to
+\R^2 \setminus \{0\}$ is polynomial in the entries
+of the matrix of which it is taken, so it is
+continuous. Its image is an open subset of $\R^2$.
+The preimage of any continuous map to an open set
+is open, so the preimage of $\det$,
+$GL(n)$, is an open subset of $M(n)$. Therefore,
+by~\ref{lem:smooth}, $GL(n)$ is a smooth manifold of
+dimension $2n^2$.
+\end{proof}
+
+\section{Matrix groups.}
+
+\par{Before proceding to matrix Lie group theory, we prove some crucial results of a few classical matrix groups.}
+
+\subsection{Maximality of the general linear group.}
+
+\par{We first prove that $GL(n)$ is the maximal matrix group, then go on to prove that several other classical matrix groups are subgroups.}
+\begin{them}
+    $GL(n)$ is the maximal matrix group.
+\end{them}
+
+\begin{proof}
+\par{$GL(n)$ inherits associativity from the
+definition of matrix multiplication.} 
+\par{Recall from linear algebra that $\det(MN) =
+\det(M)\det(N)$. Let $M, N \in GL(n)$. By the
+definition of $GL(n)$, $\det(M) \neq 0$ and
+$\det(N) \neq 0$. Then $\det(MN) = \det(M)\det(N)
+\neq 0$, so $MN \in GL(n)$.} \par{Also, $\det(I)
+\neq 0$ and $MI = IM = M$, $\forall AM\in GL(n)$,
+so $GL(n) \ni I$.} 
+\par{Finally, recall from linear algebra that a
+square matrix with nonzero determinant possesses
+an inverse. Then $\forall M \in GL(n)$, $\exists
+M^{-1}: MM^{-1} = M^{-1}M = I$. This implies
+$\det(M^{-1}) = 1/ \det(M)$, so $\det(M^{-1}) \neq
+0$, so $M^{-1} \in GL(n)$. Therefore, $GL(n)$ is a
+matrix group.}
+
+\par{Recall from linear algebra that nonsquare
+matrices and matrices with determinants of $0$
+lack inverses. Then any set with such a matrix
+fails to provide an inverse for each of its
+elements, so it is not a group.}
+
+\par{$\therefore GL(n)$ is a matrix group and any set
+of matrices with an element not in $GL(n)$ is not
+a matrix group, so $GL(n)$ is the maximal matrix
+group.}
+\end{proof}
+
+\subsection{Classical matrix group definitions.}
+\par{First, we define these classical matrix groups.}
+
+\begin{defn}
+$SL(n) = \{M \in GL(n): \det(M) = 1\}$.
+\end{defn}
+
+\begin{defn}
+$\son = \{M \in
+GL(n, \R): M^T M = M M^T = I$ and $\det(M) = 1\}$. This is a very
+important matrix group, so we define it and
+prove that it is a subgroup of $GL(n, \R)$, even
+though the rest of the paper deals with
+complex matrices.
+\end{defn}
+
+\begin{defn}
+$\sun = \{M \in GL(n) : MM^*
+= M^*M = I$ and $\det(M) = 1$ and $M_{ij} \in
+\C\}$.
+\end{defn}
+
+\begin{defn}
+There are several ways of defining $SP(2n)$, but
+we will take as definitional $SP(2n) = \{M \in
+GL(2n): M^T\Omega M = \Omega\}$, with \[\Omega =
+\begin{bmatrix} 0 & -I_n \\
+I_n & 0 \end{bmatrix}.\] Note the $2n$: this
+definition breaks if we tried $SP(3)$, for example.
+\end{defn}
+
+\subsection{Classical matrix groups are matrix groups.}
+
+\begin{prop}$SL(n)$ is a matrix group.\end{prop}
+\begin{proof}
+\par{$SL(n)$ inherits associativity from the definition of matrix multiplication.}
+\par{For $M, N \in SL(n)$, $\det(MN) = \det(M) \det(N) = 1 \cdot 1 = 1$, so $MN \in SL(n)$, so $SL(n)$ is closed under composition.}
+\par{For $M \in SL(n)$, $\det(M^{-1}) = 1 /
+\det(M) = 1 / 1 = 1$, so $M^{-1} \in SL(n)$.}
+\par{$\det(I) = 1$, so $SL(n) \ni I$.}
+\par{$\therefore SL(n)$ is associative, closed under inversion and composition, and contains the identity, so $SL(n)$ is a matrix group.}
+\end{proof}
+    
+\begin{prop}$\son$ is a matrix group.\end{prop}
+\begin{proof}
+\par{$\son$ inherits associativity from the definition of matrix multiplication.}
+\par{For $M \in \son$, $MM^T = I$ by definition,
+so ${(MM^T)}^{-1} = I^{-1} = I$. Also
+\[\begin{aligned} {(MM^T)}^{-1} & =
+{(M^T)}^{-1}M^{-1} \\ & = {(M^{-1})}^T M^{-1} \\ &
+= M^{-1}{(M^{-1})}^T.\end{aligned}\] Each equality
+is given by a straightforward property of matrices
+from linear algebra. This implies that
+$M^{-1}{(M^{-1})}^T = I$. $\det(M^{-1}) = 1$ is
+provided by $\son \subseteq SL(n)$. The $M_{ij}
+\in \R$ condition is provided by the closure of
+$\R$ under negation and division, which are the
+operations on the entries that produce inversion.
+$M^{-1} \in \son$. Therefore, $\son$ is closed
+under inversion.}
+\par{For $M, N \in \son$:
+\[\begin{aligned}(MN){(MN)}^{T} & = MN(N^{T}M^{T})
+\\ & = M(NN^T)M^T \\ & = MIM^T \\ & = MM^T \\ & =
+I.\end{aligned}\] Again each equality is provided
+by a straightforward property of matrices from
+linear algebra. $\det(MN) = 1$ is provided by
+$\son \subseteq SL(n)$. The $M_{ij} \in \R$
+condition is provided by the closure of $\R$ under
+addition and multiplication, the operations on the
+entries that produce composition.}
+\par{$II^T = II = I$, so $\son \ni I$.}
+\par{$\therefore \son$ is associative, closed under inversion and composition, and contains the identity, so $\son$ is a matrix group.}
+\end{proof}
+
+\begin{prop}$\sun$ is a matrix group.\end{prop}
+\begin{proof}
+This proof is identical to the preceding one, \textit{mutatis
+mutandis}. 
+\end{proof}
+
+\begin{prop}$SP(2n)$ is a matrix group.\end{prop}
+\begin{proof}
+\par{$SP(2n)$ inherits associativity from the definition of matrix multiplication.}
+\par{Let $M \in SP(2n)$, so $M^T \Om M = \Om$.
+Observe that $\Om^{-1} = -\Om$. Then \[\begin{aligned}{(M^T \Om
+M)}^{-1} & = \Om^{-1} \\ & = -\Om,\end{aligned}\] so $-{(M^T \Om
+M)}^{-1} = \Om$, which allows finally
+\[\begin{aligned}
+    -{(M^T \Om M)}^{-1} & = -M^{-1} \Om^{-1}
+    {(M^T)}^{-1} \\ & = M^{-1} \Om {(M^T)}^{-1} \\
+    & = \Om.
+\end{aligned}\] Multiplying the penultimate and ultimate terms by $M$ on the left and by $M^T$ on the right gives
+\[
+    \Om = M \Om M^T,
+\] showing that $M^T \in SP(2n)$. Then we may replace $M$ with $M^T$ in any of the above equations without jeopardizing the equality. Take $\Om = M^{-1}\Om{(M^T)}^{-1}$ and replace $M$ with $M^T$:
+\[\begin{aligned}
+{(M^T)}^{-1} \Om {({(M^T)}^T)}^{-1} & =
+{(M^T)}^{-1} \Om M^{-1} \\
+& = {(M^{-1})}^T \Om M^{-1} \\ & = \Om,
+\end{aligned}\] showing that $M^{-1} \in
+SP(2n)$, which is (finally) the desired
+result. Therefore, $SP(2n)$ is closed under
+inversion.}
+\par{For $M, N \in SP(2n)$,
+\[\begin{aligned}
+{(MN)}^T \Om (MN) & = N^T M^T \Om M N \\ & =
+N^T \Om N \\ & = \Om,
+\end{aligned}\] so $MN \in SP(2n)$, so $SP(2n)$ is closed under composition.
+}
+\par{Trivially, $I^T\Om I = I \Om I =  \Om$, so $SP(2n) \ni I$.}
+\par{$\therefore SP(2n)$ is associative, closed under inversion and composition, and contains the identity, so $SP(2n)$ is a matrix group.}
+\end{proof}
+
+\par{Before moving on to matrix Lie groups, we
+emphasize that this section has established that
+$SL(n)$, $\son$, $\sun$, and $SP(n)$ are
+subgroups of $GL(n)$ (stipulating that $n$ is even
+in the case of $SP(n)$, respecting our previous
+notation). With Cartan’s Theorem, to be
+established later, this gets us further than
+we might expect.}
+
+\section{Matrix Lie groups.}
+
+\subsection{Definitions and discussion.}
+
+\par{There are at least three definitions of
+“matrix Lie group” that could come into effect
+here.}
+
+\begin{defn}\label{def1} A matrix Lie group is a
+matrix group that is also a Lie group.\end{defn}
+\par{In particular, this means that the group is
+realized as a set of matrices satisfying the group
+axioms, that the group has smooth inversion and
+composition maps, and also that the group has
+smooth manifold structure. This is the most honest
+and least insightful definition. To use this with
+no other machinery, for example, we might need to
+build a new atlas for each matrix Lie group by
+hand.}
+
+\begin{defn}\label{def2} A matrix Lie
+group is a subgroup of a matrix group and a
+submanifold of a manifold.
+\end{defn} 
+\par{This definition is slightly smarter. It does
+not require us to establish all the structure for
+our matrix Lie group \textit{de novo}. Instead,
+all it asks is that we show that the set in
+question can inherit all the relevant properties
+from superset. Allowing a matrix group to be a
+subgroup of itself and a manifold to be a
+submanifold of itself, this definition is also
+perfectly broad.}
+
+\begin{defn}\label{def3} A matrix Lie
+group is a subgroup of $GL(n)$ closed under
+nonsingular limits.
+\end{defn}
+\par{We have already established
+that $GL(n)$ is the maximal matrix group and that
+$GL(n)$ is a smooth manifold, so this definition should
+not come completely out of the blue. However, it
+should still be surprising. For any subgroup $G$ of
+$GL(n)$, as long as any convergent sequence of
+matrices $M_n \in G$ converges to a matrix in $G$
+or leaves $GL(n)$ altogether, $G$ is a matrix Lie
+group. No direct proof of its manifold structure
+is necessary. This is the route that allows one to
+study Lie theory in a surprising amount of depth
+without ever touching manifolds.}
+
+\subsection{Direct proof: the general linear group is a Lie group.}
+\par{It would be cheating to go through this whole
+paper without a single complete and direct proof
+that some object is a Lie group. It has already
+been shown that $GL(n)$ is a matrix group and a
+smooth manifold, so all that remains is to show
+that the inversion and composition maps are
+smooth.}
+
+\begin{them}$GL(n)$ is a Lie group.\end{them}
+\begin{proof}
+\par{Let $\mu : GL(n) \times GL(n) \to GL(n)$ be
+the matrix multiplication ($\sim$ group composition) map.
+Then $\mu(A, B) = AB$, with entries calculated 
+\[
+    {(AB)}_{ij} = \sum_{k=1}^n a_{ik}b_{kj}.
+\] 
+This is a polynomial in the entries of $A$ and
+$B$, so it is $C^\infty$.}
+
+\par{Let $\upiota: GL(n) \to GL(n)$ be the matrix
+inversion ($\sim$ group inversion) map. Recall
+from linear algebra that the $(i,j)$-minor,
+denoted $M_{i,j}$, of a matrix is the determinant
+of the submatrix formed by deleting row $i$ and
+column $j$ of the matrix. The formula for entries
+of the inverse of a matrix $A$ is 
+\[\begin{aligned} {(\upiota(A))}_{ij} & =
+{(A^{-1})}_{ij} \\ & =
+\frac{1}{\det(A)}{(-1)}^{i+j}M_{j,i}
+\end{aligned}\] by Cramer’s rule. $M_{j,i}$ is a
+polynomial in the entries of $A$, so it is
+$C^\infty$, and $1/ \det(A)$ is also $C^\infty$ as
+long as $\det(A) \neq 0$, which is assured by the
+fact that $A \in GL(n)$. Therefore this formula is
+$C^\infty$ in the entries of $A$, so the version
+map is $C^\infty$.
+}
+\par{This completes the proof that $GL(n)$ is a Lie group.}
+\end{proof}
+
+\section{Matrix exponential and logarithm functions.}
+\par{We now pivot to build the machinery that will be
+used to connect Lie groups to Lie algebras. (From
+chapter 2 in~\cite{Hall}.)}
+
+\subsection{Matrix exponential function.}
+\par{
+Recall the power series of $e^x$ for $x \in \C$:
+\[
+    e^x = \sum_{n=0}^{\infty}\frac{x^n}{n!}.
+\] This is a theorem due to Euler in the scalar case, but we will take it as a definition in the matrix case.}
+\begin{defn}
+\[\begin{aligned} e^X = \exp(X) & =
+\sum_{n=0}^{\infty}\frac{X^n}{n!} \\ & = I +
+\sum_{n=1}^{\infty}\frac{X^n}{n!}.
+\end{aligned}\] Some texts use $e^X$ rather
+than $\exp(X)$. The latter is preferred here
+because it can be confusing to conflate the
+scalar- and matrix-valued functions.
+\end{defn}
+\par{It is not yet clear that this is a sensible
+notion, for we do not know whether the power
+series converges.}
+\begin{defn}
+To help prove the convergence of this power series, we
+define the \textbf{Hilbert-Schmidt norm} of a
+matrix:
+\[
+    \V X \V = {\Big[\sum_{i,j=1}^{n}{(x_{ij})}^2 \Big]}^{1/2}.
+\]
+\end{defn} 
+\par{The following two inequalities follow quickly
+from properties of the metric on the field over
+which $M(n, \K)$ is defined, and are not proven here:
+\[\begin{aligned}
+    \V X + Y \V & \leq \V X \V + \V Y \V \\
+    \V XY \V & \leq \V X \V \V Y \V.
+\end{aligned}
+\] By induction on the second inequality, setting $X =
+Y$, we also
+have $\V X^n \V \leq \V X \V^n$.}
+\begin{them} $\exp(X)$ converges absolutely and is
+continuous
+$\forall X \in M(n)$.
+\end{them}
+\begin{proof}
+\par{
+    We say that a sequence of matrices $\{X_m\}$
+    converges to $X$ if ${(X_m)}_{ij} \to (X)_{ij}$
+    as $m \to \infty$. It follows
+    straightforwardly that $X_m$ converges to $X$
+    if and only if $\V X_m - X \V \to 0$ as $m \to
+    \infty$. Then 
+\[
+    \sum_{n=0}^{\infty}\frac{\V X^n\V}{n!} \leq \sum_{n=0}^\infty \frac{\V X \V^n}{n!}.
+\] The right-hand side is the power series for $e^{\V X \V}$ with $\V X \V \in \R$, which converges absolutely. Therefore, $\exp(X)$ converges absolutely.
+}
+\par{
+Note also that each entry in $X^n$ is a product of
+the entries of $X$, so $X^n$ is a continuous
+function of $X$, $\forall n \in \N$, so the
+partial sums are continuous. By the Weierstrass
+$M$-test, $\exp(X)$ converges uniformly for
+matrices with norms in $(0, \V X \V)$. For any
+matrix $M \in M(n)$, we can choose $M +
+\varepsilon$ so that $\exp$ converges uniformly on
+an open set containing $M$. Therefore by the
+uniform convergence theorem, $\exp(X)$ is
+continuous on all of $M(n)$.
+}
+\end{proof}
+
+\begin{prop}\label{prop:expprop} We now prove several important properties of the
+matrix exponential function.
+\begin{enumerate}
+    \item $\exp(0)= I$.
+    \item If $XY = YX$, $\exp(X + Y) = \exp(X)\exp(Y) = \exp(Y)\exp(X)$.
+    \item ${\exp(X)}^{-1} = {\exp(-X)}$.
+    \item $\exp((\alpha +\beta)X) = \exp(\alpha X)
+    \cdot \exp(\beta X)$ for $\alpha, \beta \in
+    \C$. 
+    \item $\forall C \in GL(n)$, $\exp(CXC^{-1}) = C\exp(X)C^{-1}$.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+\par{(1) follows straightforwardly from the definition
+of the power series beginning at $n=1$.} \par{To
+see (2), consider $\exp(X)\exp(Y)$, multiplying
+term-by-term in
+such a way that we collect all terms where powers
+add to $m$. Multiplying term-by-term is permitted
+because both series converge absolutely. This means:
+\[
+\begin{aligned}
+\exp(X) \exp(Y) & = \sum_{m=0}^{\infty}\sum_{n=0}^{m}\frac{X^n}{n!} \frac{Y^{m-n}}{(m-n)!}  \\
+& = \sum_{m=0}^{\infty}\frac{1}{m!}\sum_{n=0}^{m}\frac{m!}{n!(m-n)!}X^{n}Y^{m-n},
+\end{aligned}
+\] after multiplying by $m!/m!$ and rearranging. Now, note that exponentiation of matrices does not behave exactly like exponentiation of reals. For example 
+\[{(X+Y)}^2 = X^2 + XY + YX + Y^2,\] which does
+not equal the familiar form
+\[\sum_{n=0}^2 \binom{m}{n}X^n Y^{m-n}\] if $X$
+and $Y$ fail to commute. In this case, however,
+since $X$ and $Y$ commute,
+\[
+    {(X+Y)}^m = \sum_{n=0}^{m} \frac{m!}{n!(m-n)!}X^{n} Y^{m-n}.
+\] Plugging in to the previous equation
+\[\begin{aligned}
+    \exp(X)\exp(Y) & = \sum_{m=0}^{\infty}\frac{{(X+Y)}^{m}}{m!} \\ & = \exp(X+Y).
+\end{aligned}\]
+}
+\par{To prove (3), let $Y = -X$. We know that
+$-XX = X(-X)$, so $-X$ and $X$ commute, so (2)
+applies. Then 
+\[\begin{aligned}\exp(-X + X) & = \exp(-X) \exp(X)
+\\ & = \exp(0) \\ & = I,\end{aligned}\] 
+so $\exp(-X) = {\exp(X)}^{-1}$. This implies that
+$\exp(X) \in GL(n)$, $\forall X \in M(n)$.}
+\par{(4) is also a special case of (2), since
+$\alpha X$ is equivalent to $(\alpha I)X$, and
+$\alpha I$ commutes with $\forall X \in M(n)$.}
+\par{To prove (5), note that ${(CXC^{-1})}^n =
+CX^n C^{-1}$ is a basic result in linear algebra.
+This implies that the power series of
+$\exp(CXC^{-1})$ and $C\exp(X)C^{-1}$ are
+term-by-term equivalent.}
+\end{proof}
+
+\begin{prop} Let $X \in M(n)$. Then for $t \in \R$,
+$\exp(tX)$ is a smooth curve in
+$M(n)$, and 
+\[\begin{aligned}
+    \frac{d}{dt} \exp(tX) & = X\exp(tX) \\ & = \exp(tX)X.
+\end{aligned}\] This implies
+\[
+    \frac{d}{dt} \exp(tX) \Big|_{t=0} = X,
+\] since $\exp(0) = I$.
+\end{prop}
+
+\begin{proof} This follows simply from
+differentiating the power series term by term.
+This is permitted because each entry
+${(\exp(tX))}_{jk}$ of $\exp(tX)$ is given by a
+convergent power series in $t$, and one can
+differentiate a power series term by term within
+its radius of convergence. This holds for all
+entries of the matrix, so it holds for the matrix
+as a whole.
+\end{proof}
+
+\begin{prop}\label{prop:weirdexp}
+    For all $X, Y \in M(n)$, we have
+\[
+    \exp(X+Y) = \lim_{m\to\infty} {(\exp(X/m)\exp(Y/m))}^m.
+\]
+\end{prop}
+
+\begin{proof}
+    The proof is long and not very interesting
+    and, moreover, requires a fairly substantial
+    lemma that is also not very interesting,
+    so it is omitted with a reference to
+    (\cite{Hall}, 39--40).
+\end{proof}
+
+\begin{prop} For $\forall X \in M(n)$, we have 
+\[
+    \det(\exp(X)) = e^{tr(X)}.
+\]
+\end{prop}
+
+\begin{proof}
+\par{Suppose $X$ is diagonalizable with
+eigenvalues $\lambda_1, \hdots, \lambda_n$. Then
+$X = CDC^{-1}$ for $D$ diagonal, so $\exp(X) =
+\exp(CDC^{-1}) = C\exp(D)C^{-1}$ by proprty (5). Clearly
+$\exp(D)$ is a diagonal matrix with eigenvalues
+$e^{\lambda_1}, \hdots, e^{\lambda_n}$. Then
+$\det(X) = \det(D) = e^{\lambda_1}\cdot \hdots
+\cdot e^{\lambda_n}$. On the other hand, $tr(X) =
+tr(D) = \lambda_1 + \hdots + \lambda_n$. Therefore
+$e^{tr(X)} = e^{tr(D)} = e^{\lambda_1 + \hdots +
+\lambda_n} = e^{\lambda_1} \cdot \hdots \cdot
+e^{\lambda_n}$.}
+
+
+\par{If $X \in M(n, \C)$ is not diagonalizable,
+then there is a sequence $\{D_n\}$ with
+$\lim_{n\to\infty}D_n = D$ such that $X =
+CDC^{-1}$ for some invertible matrix $C$.
+Then also $tr(X) = tr(D)$ and $\det(X) = \det(D)$,
+so the proof goes through identically. (This theorem does not hold for $X \in M(n, \R)$
+because an arbitrary real matrix cannot be
+approximated by a diagonal matrix.)}
+\end{proof}
+
+
+\subsection{Matrix logarithm function.}
+\par{It is also necessary to define the matrix logarithm function, which, as we will see, is the inverse of the matrix exponential in its radius of convergence.}
+\par{For $z \in \C$, recall the power series
+\[
+    \log(z) = \sum_{n=1}^{\infty} {(-1)}^{n+1} \frac{{(z-1)}^n}{n},
+\] which we state but do not prove is defined and holomorphic in a circle of radius $1$ about $z = 1$. (Proof in~\cite{Hall} 36--7.) This function has the following two crucial properties:
+\[
+    e^{\log(z)} = z,
+\] for $z$ with $\vert z - 1 \vert < 1$, and
+\[
+    \log(e^u) = u
+\] for $u$ with $\vert u \vert < \log2$. (This condition means $\vert e^u - 1\vert < 1$).
+}
+\begin{defn}
+Analogously, we define for $A \in M(n)$
+\[
+    \log(X) = \sum_{n=1}^{\infty}{(-1)}^{n+1}\frac{{(X-I)}^n}{n}
+\] whenever the series converges. Since the series has 
+radius of convergence $1$ for $z \in \C$ and $\V
+{(X-I)}^n \V \leq \V X-I \V^n$ for $n \geq 1$, if
+$\V X - I \V < 1$, the matrix-valued series
+converges and is continuous. Note that even
+outside that radius the series converges if $X-I$
+is nilpotent, that is, if $\exists n : {(X-I)}^n = 0$.
+(We call such an $X$
+\textbf{unipotent}.)\end{defn}
+\begin{prop} 
+Within this radius of convergence,
+\[
+    \exp(\log(X)) = X,
+\] and for all $X \in M(n)$ with $\V X \V < \log(2)$, $\V \exp(X) \V < 1$ and
+\[
+    \log(\exp(X)) = X.
+\] We state but do not prove this theorem of which a proof exists in (\cite{Hall}, 38--9).
+\end{prop}
+
+\subsection{One-parameter subgroups.}
+\par{With the matrix exponential and logarithm functions defined, we can now define one-parameter subgroups, which are used in generating the Lie algebra of a Lie group.}
+\begin{defn}\label{def:gh}
+A one-parameter subgroup of $GL(n)$ is a group homomorphism $A: \R^{+} \to
+GL(n)$. This implies the following: 
+\begin{itemize}
+    \item $A$ is continuous.
+    \item $A(t+s) = A(t)A(s)$.
+    \item $A(0) = I$.
+\end{itemize}
+\end{defn}
+
+\par{We state but do not prove the following lemma, of which a proof be found in (\cite{Hall}, 41--2).}
+\begin{lem}\label{lem:sqrt} Fix some $\varepsilon$ with
+$\varepsilon < \log 2$. Let $B_{\varepsilon / 2}$ be the
+ball of radius $\varepsilon / 2$ around the $0$ in
+$M(n)$, and let $U = \exp(B_{\varepsilon/2})$. Then
+every $X \in U$ has a unique square root $Y$ in
+$U$, given by $Y = \exp(\frac{1}{2}\log X)$.
+\end{lem}
+
+\par{Intuitively, this says that if we take some
+sufficiently small ball around the origin as the preimage of $\exp$,
+every matrix $X$ in the image has a unique square
+root $Y$ also in the image, which is found
+simply by $Y =
+\exp(\frac{1}{2}\log X)$. It is easy to check that
+$Y^2 = X$, so the only real work is to prove uniqueness.}
+
+\par{With this, we can prove the crucial result relating one-parameter subgroups to the matrix exponential function.}
+\begin{them} If $A$ is a one-parameter
+subgroup of $GL(n)$, there exists a unique $n
+\times n$ matrix such that $A(t) = \exp(tX)$.
+\end{them}
+\begin{proof} 
+\par{Uniqueness is immediate: if
+$\exists X: \exp(tX) = A(t)$, then $X =
+\frac{d}{dt}A(t)\big|_{t=0}$. Now to prove
+existence. Let $U = \exp(B_{\varepsilon / 2})$ as in
+the lemma, so $U$ is an open set in $GL(n)$. By
+the continuity of $A$, $\exists t_0 > 0$ such that
+$A(t) \in U$ for all $t: |t| \leq t_0$. In other
+words, $A$ is continuous, and its output is in $U$
+at $t=0$, so if we keep $t$ within some $t_0$ of
+$0$, the output will stay within $U$. Now define
+\[
+    X = \frac{1}{t_0}\log(A(t_0)),
+\] which means that
+\[
+    t_0X = \log(A(t_0)).    
+\] Because $\log(A(t_0)) \in B_{\varepsilon/2}$, we also have 
+$t_0X \in B_{\varepsilon/2}$ and $\exp(t_0X) = \exp(\log(
+A(t_0))) = A(t_0)$. Clearly, $A(t_0/2)$ is also in $U$, and
+${A(t_0/2)}^2 = A(t_0)$ by a property of group
+homomorphisms (\ref{def:gh}). By~\ref{lem:sqrt},
+$A(t_0)$ has a unique square root in $U$, which is
+$\exp(t_0X/2)$. This implies that $A(t_0/2) =
+\exp(t_0X/2)$. By induction, $A(t_0/2^k) =
+\exp(t_0X/2^k)$, $\forall k \in \N$. We have
+\[\begin{aligned} A(mt_0/2k^2) & = {A(t_0/2^k)}^m \\ & =
+{\exp(t_0X/2^k)}^m \\ & = \exp(mt_0X/2^k)
+\end{aligned},\]
+with the first equality by a property of group
+homomorphisms (\ref{def:gh}), the second by
+$A(t_0/2^k) = \exp(t_0X/2^k)$, and
+the third the
+property of the exponential function ${\exp(M)}^m = \exp(mM)$.}
+\par{Therefore $A(t) = \exp(tX)$ for all $t =
+mt_0/2^k$. 
+There exist $m, t_0, k$ to recover any arbitrary
+$t$ because the set of numbers of the form $t =
+mt_0/2^k$ is dense in $\R$. Moreover,
+$\exp(tX)$ and $A(t)$ are both continuous. Therefore,
+$A(t) = \exp(tX)$ for $t \in \R$.}
+\end{proof}
+
+\begin{prop} The exponential map $\exp(X)$ is smooth
+(infinitely differentiable).\end{prop}
+\begin{proof} We have already
+proven that $\exp(tX)$ is smooth, but the present proposition
+is different: we are proving that we can take the
+derivative in the direction of an arbitrary
+matrix, which is stronger than taking the
+derivative with respect to the parameter $t$.
+Nonetheless, this proof proceeds similarly. Note
+that each entry ${(X^m)}_{jk}$ of $X^m$ is a homogeneous
+polynomial of degree $m$ in the entries of $X$.
+Thus, the series for the function ${(X^m)}_{jk}$ has
+the form of a multivariable power series. Since
+the series converges on all of $M(n)$, it is
+permissible to differentiate the power series
+term-wise as many times as desired, which means
+that the function ${(X^m)}_{jk}$ is smooth. The
+smoothness of the exponential map follows
+immediately.
+\end{proof}
+
+\par{We state but do not prove the following
+proposition, which is noteworthy but will not be
+used anywhere in this paper. The proof is sketched
+in (\cite{Hall}, 48)}
+\begin{prop} For $X \in GL(n)$,
+$\exists A \in GL(n): \exp(A) = X$.\end{prop}
+
+\section{Lie algebras.}
+\par{We now have the tools to make good use of the
+notion of a \textbf{Lie algebra}, which we will
+define then apply.}
+
+\subsection{Definitions.}
+\begin{defn}A Lie algebra $\g$ over $\K = \R$
+or $\C$ is a $\K$-vector space with a bracket operation
+$[\cdot,\cdot]$ that satisfies the following
+properties:
+\begin{itemize}
+    \item bilinearity: $[aX + bY, Z] = a[X, Z] +
+    b[Y, Z]$ and $[Z, aX + bY] = a[Z, X] +
+    b[Z, Y]$
+    \item antisymmetry: $[X,Y] = -[Y,X]$
+    \item Jacobi identity: $[X, [Y, Z]] + [Y, [Z,
+    X]] + [Z, [X, Y]] = 0$
+\end{itemize}
+for $X, Y, Z \in \g$ and $a \in \K$.
+\end{defn}
+
+\begin{rmk}We use lowercase Gothic characters to
+denote Lie algebras, with the Lie algebra of a Lie
+group $G$ as $\g$.\end{rmk}
+
+\begin{defn} The vector space of matrices in
+$M(n)$ with the bracket defined by the commutator 
+\[
+    [X, Y] = XY - YX
+\] is denoted $\gl(n)$, or $\gl$.
+\end{defn}
+
+\begin{them}$\gl(n)$ is a Lie algebra.\end{them}
+\begin{proof}
+\par{We check that the commutator satisfies
+bilinearity, antisymmetry, and the Jacobi
+identity.}
+\par{$[aX + bY, Z] = (aX + bY)Z - Z(aX + bY)$ by
+the definition of the commutator, which 
+\[\begin{aligned}& = aXZ + bYZ - ZaX - ZbY \\
+& = aXZ + bYZ - aZX - bZY \\
+& = aXZ - aZX + bYZ - bZY \\
+& = a(XZ - ZX) + b(YZ - ZY) \\
+& = a[X, Z] + b[Y, Z].\end{aligned}\] The proof for linearity
+in the second coordinate is identical,
+\textit{mutatis mutandis}.}
+\par{Straightforwardly from the definition of the
+commutator, it follows that
+\[\begin{aligned}
+    [X, Y] & = XY - YX \\ & = -(YX - XY) \\ & = -[Y,X].
+\end{aligned}\]}
+\par{Expanding by the definition of the
+commutator 
+\[\begin{aligned} 
+&\quad [X, [Y, Z]] + [Y, [Z,
+X]] + [Z, [X, Y]] \\ 
+& = [X, YZ - ZY] + [Y, ZX - XZ] +
+[Z, XY - YX] \\
+& = X(YZ - ZY) - (YZ-ZY)X + Y(ZX-XZ) - (ZX-XZ)Y +
+Z(XY-YX) - (XY-YX)Z \\
+& = XYZ - XZY - YZX + ZYX + YZX - YXZ - ZXY + XZY
++ ZXY - ZYX - XYZ + YXZ \\
+& = 0,\end{aligned}\] cancelling like terms.}
+\par{Therefore, the commutator is a valid bracket,
+so $\gl(n)$ is a Lie algebra.}
+\end{proof}
+
+\par{The following theorem is significant but
+surprisignly difficult to prove, so we merely
+state it.}
+\begin{them} (\textbf{Ado’s Theorem}.)
+    Every finite-dimensional Lie algebra $\g$
+    over a field $\K$ of characteristic zero is
+    isomorphic to a Lie algebra of square matrices under
+    the commutator bracket.
+\end{them}
+\par{This means that as long as we are working
+over non-pathological fields, $\gl$ and its
+subalgebras are the only ones we need. This
+theorem is one reason that we can get further than
+we might expect using matrix Lie groups.}
+
+\begin{ex}
+The most familiar example of a Lie algebra is
+$\R^3$ equipped with the traditional
+cross-product. To prove that the cross product is
+a valid Lie bracket operation, it suffices to
+demonstrate that it is antisymmetric and follows
+the Jacobi identity on the basis vectors.
+Antisymmetry is definitional:
+\[\ihat \times \jhat = - \jhat \times \ihat,\]
+\[\jhat \times \khat = - \khat \times \jhat,\]
+\[\khat \times \ihat = - \ihat \times \khat.\] The
+Jacobi identity follows from computation: 
+\[\begin{aligned}
+    \ihat \times (\jhat \times \khat) + \jhat
+    \times (\khat \times \ihat) + \khat \times
+    (\jhat \times \jhat)
+    & = \ihat \times \ihat +
+    \jhat \times \jhat + \khat \times \khat \\ & = 0.
+\end{aligned}\]
+\end{ex}
+\begin{rmk}
+Any commutative algebra is also trivially a Lie
+algebra, where $[\cdot,\cdot] \equiv 0$ because
+$XY = YX$.
+\end{rmk}
+
+\subsection{The Lie algebra of a matrix Lie group.}
+\begin{defn} Let $G$ be a matrix Lie
+group. The \textbf{“Lie algebra”} of $G$, denoted
+$\g$, is the set of all matrices $X$
+such that $\exp(tX) \in G$, $\forall t \in \R$.
+\end{defn}
+
+\par{This definition states that the “Lie algebra”
+of a Lie group is the set of all matrices whose
+corresponding one-parameter subgroup lies entirely
+in $G$. We call it a “Lie algebra” for now because
+we have not shown that it is a Lie algebra
+according to the original definition.}
+\par{Note that $\exp(X) \in G$ does not
+necessarily imply $X \in \g$: our requirement is
+stronger.}
+\par{We now show that $\g$, our “Lie algebra,” is indeed a Lie algebra.}
+
+\begin{them}
+    Let $G$ be a matrix Lie group with Lie algebra
+    $\g$. Then $\forall X, Y \in \g$, the
+    following results hold.
+\begin{itemize}
+    \item $\forall A \in G, AXA^{-1} \in \g$.
+    \item $\forall s \in \R, sX \in \g$.
+    \item $X + Y \in \g$.
+    \item $XY - YX \in \g$.
+\end{itemize}
+It follows from (2) and (3) that $\g$ is a vector
+space, and from (4) that $\g$ is closed under the
+bracket $[X,Y] = XY - YX$, so it is a Lie algebra.
+\end{them}
+
+\begin{proof}
+\par{For (1), recall that 
+\[\exp(t(AXA^{-1})) = A \exp(tX) A^{-1}\]
+by~\ref{prop:expprop}. This is in $G$ because all
+three of its terms are in $G$.}
+
+\par{For (2), note that $\exp(t(sX)) =
+\exp((ts)X)$, which is in $G$ by the
+definition of $\g$. This implies that $sX \in
+\g$.}
+
+\par{For (3), note that
+\[\exp(t(X+Y)) = \lim_{t \to
+\infty}{[\exp(tX/m)\exp(tY/m)]}^m\]
+by~\ref{prop:weirdexp}. Then $(\exp(tX/m))$ and
+$(\exp(tX/m))$ are in $G$. We know that $G$ is
+closed under composition, so $\exp(tX/m)\exp(tY/m)
+\in G$. Exponentiation is repeated composition
+and, again, $G$ is closed under composition, so
+${[\exp(tX/m)\exp(tY/m)]}^m \in G$.
+By~\ref{prop:expprop} $\exp(t(X+Y))$ in $GL(n)$.
+$G$ is defined as a matrix Lie group, so
+by~\ref{def3} it is closed in $GL(n)$. Therefore
+$\exp(t(X+Y)) \in G$. This finally shows that
+$\exp(t(X+Y)) \in G$, so $X + Y \in \g$. }
+
+\par{For (4), let $X, Y \in \g$ and consider
+\[\begin{aligned}
+    \frac{d}{dt}(\exp(tX)Y\exp(-tX))\Big|_{t=0} &
+    = (XY)\exp(0) + (\exp(0)Y)(-X)\\ 
+& = XY - YX.\end{aligned}\] Now by (1), $\exp(tX) Y \exp(-tX)
+\in G, \forall t \in \R$. Moreover, by (2) and
+(3), $\g$ is a real subspace of $M(n)$, so it is
+topologically closed, so
+\[\lim_{t \to 0}\frac{\exp(tX)Y\exp(-tX) - Y}{h}\]
+remains in the subspace. This is the definition of
+the derivative of $\exp(tX)Y\exp(-tX)$ at $t = 0$, which has just been
+shown to equal $XY-YX$. Therefore $\g$ is closed
+under the bracket $[X,Y] = XY - YX$.
+}
+
+\par{This completes the proof that $\g$ is a Lie algebra, so our notion of “Lie algebra” is indeed a Lie algebra, and we can remove the scare quotes.}
+\end{proof}
+
+\begin{rmk}
+We do not have the space to do much with the
+bracket of a Lie algebra in this paper, so I would
+at least like to remark on it here. Our bracket,
+the commutator, is easily interpreted as a measure
+of non-abelian-ness: if $X$ and $Y$ commute,
+$[X,Y] = 0$, while if $XY$ and $YX$ differ
+significantly, then $[X,Y] = XY - YX$ is very
+large. The purpose of the bracket, then, is to
+recover some of the non-abelian structure of the
+group. If we did not endow our Lie algebra with a
+bracket, our only operation would be vector
+addition, which is commutative, so the algebra
+would obliterate all of the non-abelian structure of
+the group. For example, we saw above that
+$\exp(X)\exp(Y) = \exp(X + Y)$ if and only if $X$
+and $Y$ commute.
+The full formula is the
+\textbf{Baker-Campbell-Hausdorff formula}:
+\[\exp(X)\exp(Y) = \exp(X + Y + \frac{1}{2}[X,Y] +
+\frac{1}{12}([X,[X,Y]] + [Y,[Y,X]]) + \hdots),\]
+continuing by adding higher-order compositions of
+the commutator. Thus, the bracket allows us to
+reprise non-commutative group operations on our
+vector space. 
+\end{rmk}
+
+\par{Two straightforward facts about the correspondence between Lie groups and Lie algebras follow. Then, we prove a theorem that gets us the rest of the significant results of this paper.}
+\begin{defn} The identity component of $G$,
+    denoted $G_0$, is the connected component of
+    $G$ containing the identity. In the context of
+    matrix Lie groups, connectedness is equivalent
+    to path-connectedness, so $G_0$ is also
+    the path-connected component of identity.
+\end{defn}
+    
+\begin{prop} Let $G$ be a matrix Lie
+group and $X \in \g$ an element of its Lie algebra.
+Then $\exp(X) \in G_0$.
+\end{prop}
+
+\begin{proof} By the definition of $\g$,
+$\exp(tX) \in G$, $\forall t \in \R$. Then for $t
+: 0 \to 1$, $\exp(tX): I \to \exp(X)$, so $I$ and
+$\exp(X)$ are path-connected, so $\exp(X) \in
+G_0$.
+\end{proof}
+
+\begin{prop}
+    If $G$ is commutative, then $\g$ is commutative.
+\end{prop}
+\begin{proof}
+    For $X, Y \in M(n)$, we can calculate
+\[
+    [X,Y] = \frac{d}{dt}\Big(\frac{d}{ds}\exp(tX)\exp(sY)\exp(-tX)\Big|_{s=0}
+    \Big)\Big|_{t=0}.
+\] If $X, Y \in \g$ and $G$ is commutative, then $\exp(tX)$ commutes with $\exp(sY)$, giving 
+\[\begin{aligned}
+    [X, Y] & =
+    \frac{d}{dt}\Big(\frac{d}{ds}\exp(tX)\exp(-tX)\exp(sY)\Big|_{s=0}\Big)\Big|_{t=0} \\
+    & = \frac{d}{dt}\Big(\frac{d}{ds}\exp(sY)\Big|_{s=0}\Big)\Big|_{t=0}.
+\end{aligned}\] We are differentiating a function that is independent of $t$ with respect to $t$, so $[X,Y] \equiv 0$, so $\g$ is commutative.
+\end{proof}
+
+\begin{rmk}
+    The reverse direction requires additionally that $G$ be
+    connected. It will be shown shortly.
+\end{rmk}
+
+\begin{lem}
+    Let $\{B_m\}$ be a sequence of matrices in $G$
+    such that $B_m \to I$ as $m \to \infty$.
+    Define $Y_m = \log B_m$, which is defined for
+    all sufficiently large $m$ because $\log$ is
+    defined around $I$. Suppose $Y_m \neq 0,
+    \forall m$: this is equivalent to supposing
+    $B_m \neq I, \forall m$. Define further that
+    $Y_m / \V Y_m \V \to Y \in M(n)$ as $m \to
+    \infty$. Then $Y \in \g$.
+\end{lem}
+
+\begin{proof}
+    For any $t \in \R, (t / \V Y_m \V)Y_m \to tY$
+    by construction. $B_m \to I$, so $\V Y_m \V
+    \to 0$. Then we can construct a sequence $k_m$
+    such that $k_m \V Y_m \V \to t$. Then
+\[\exp(k_m Y_m) = \exp\Big[(k_m \V Y_m \V)
+\frac{Y_m}{\V Y_m \V} \Big] \to \exp(tY),\] since
+the parentheses within the bracket approach $t$
+and the fraction within the bracket approaches $Y$.
+On the other hand, \[\exp(k_m Y_m) =
+{(\exp(Y_m))}^{k_m}\] by a property of the
+exponential map. This equals ${(B_m)}^{k_m}$ by
+the definition of $B_m$, which is in $G$. This
+implies that $\exp(tY) \in G$. Then by definition $Y
+\in \g$. 
+\end{proof}
+
+\begin{them}
+For $0 < \varepsilon < \log 2$, let $U_\varepsilon =
+\{X \in M(n): \V X \V < \varepsilon\}$ and let
+$V_\varepsilon = \exp(U_\varepsilon)$. Suppose $G
+\subseteq GL(n)$ is a martrix Lie group with
+Lie algebra $\g$. Then $\exists \varepsilon \in
+(0, \log 2)$ such that $\forall A \in
+V_\varepsilon$, $A \in G$ if and only if $\log A
+\in \g$.
+\end{them}\label{them:3.42}
+\begin{proof}
+\par{Begin by identifying $M(n)$ with $\C^{n^2}
+\cong \R^{2n^2}$. Let $\g^\bot$ denote the
+orthogonal complement of $\g$ with respect to the
+usual inner product on $\R^{2n^2}$. Let $Z = X
+\oplus Y$ with $X \in \g$ and $Y \in \g^\bot$.
+Consider $\Phi: M(n) \to M(n)$ given by $\Phi(Z) =
+\Phi(X,Y) = \exp(X) \exp(Y)$. The exponential is
+smooth, so $\Phi$ is also smooth. By $D_Z\Phi(0)$
+denote the derivive of $\Phi$ at $0$ in the
+direction $Z$. Then
+\[\begin{aligned}
+    D_{(X,0)}\Phi(0,0) & = \frac{d}{dt}\Phi(tX,0)\Big|_{t=0} \\
+    & = (X,0),
+\end{aligned}\] and 
+\[\begin{aligned}
+    D_{(0,Y)}\Phi(0,0) & =
+    \frac{d}{dt}\Phi(0,tY)\Big|_{t=0} \\
+    & = (0,Y),
+\end{aligned}\] both by direct calculation, employing the definition $\Phi(X,Y) = \exp(X)\exp(Y)$. Then 
+\[\begin{aligned}
+D_Z\Phi(0) & = D_{(X,Y)}\Phi(0,0) \\
+& =  D_{(X,0) + (0,Y)}\Phi(0,0), 
+\end{aligned}\] 
+first by the definition of $Z$ and second simply
+by addition. By the linearity of the derivative, this equals
+\[\begin{aligned}D_{(X,0)}\Phi(0,0) + D_{(0,Y)}\Phi(0,0) & = (X,0)
++ (0,Y) \\ & = Z.\end{aligned}\] This is all to say that $D_Z\Phi(0) = Z$.
+Clearly, then, the derivative of $\Phi$ is
+nonsingular at $0$. Thus, the inverse function
+theorem applies.} 
+\par{By the inverse function
+theorem, $\Phi$ has a continuous inverse in a
+neighborhood of $\Phi(0) = I$.} \par{Let $A \in
+V_\varepsilon \cap G$. Assume toward contradiction
+that $\log A \not\in \g$. By the local inverse of
+$\Phi$ permitted by the inverse function theorem, $A_m =
+\exp(X_m)\exp(Y_m)$ for sufficiently large $m$, with $X_m, Y_m \to
+0$ as $m \to \infty$. Then $Y_m \neq 0$, otherwise
+we would have
+\[\begin{aligned}
+    \log A_m & = \log [\exp(X_m) \exp(Y_m)] \\ & = \log \exp(X_m) \in \g,    
+\end{aligned}\]
+which violates our supposition that $\log A \not
+\in \g$. However, $\exp(X_m), A_m \in G$,
+so defining 
+\[\begin{aligned}B_m & = \exp(-X_m) A_m \\ & = \exp(Y_m) \in G.\end{aligned}\] The
+unit sphere in $\g^\bot$ is compact, so there exists a
+subsequence $\{Y_m\}$ such that $Y_m / \V Y_m \V$
+converges to $Y \in \g^\bot$, where $\V Y \V = 1$.
+But by the lemma this implies that
+$Y \in \g$. Yet $\g^\bot$ is
+the orthogonal complement of $\g$, so the two are
+only trivially nondisjoint, so $Y \in \g$ and $Y
+\in \g^\bot$ is a contradiction. Therefore,
+there must be $\varepsilon$ such that $\log A \in
+\g$ for all $A \in V_\varepsilon \cap G$. }
+\end{proof}
+
+\begin{cor}
+    If $G$ is a matrix Lie group with
+    corresponding Lie algebra $\g$, then $\exists
+    U$ a neighborhood of $0$ in $\g$ and a
+    neighborhood $V$ of $I$ in $G$ such that the
+    exponential map takes $U$ homeomorphicallly
+    onto $V$.
+\end{cor}
+\begin{proof}
+    Let $\varepsilon$ sufficiently small
+    that~\ref{them:3.42} holds. Set $U =
+    U_\varepsilon \cap \g$ and $V = V_\varepsilon \cap
+    G$. Then~\ref{them:3.42} implies that $\exp: U
+    \to V$ is surjective. Moreover, $\exp$ is a
+    homeomorphism, since there is a continuous
+    inverse map $\log\big|_{V}$.
+\end{proof}
+
+\begin{cor}\label{cor:csg} (\textbf{Cartan’s Theorem}).
+    Any closed subgroup $H$ of a Lie
+group $G$ is a Lie subgroup (and thus a submanifold) of $G$.
+\end{cor}
+\begin{proof}
+    By the previous corollary, $\exp^{-1}: U \to
+    V$ is a diffeomorphism from some neighborhood
+    of $I \in G$ to some neighborhood of $0 \in
+    V$. This implies that $\exp^{-1}\big|_H: U
+    \cap H \to V \cap \mathfrak{h}$ is a
+    diffeomorphism from some neighborhood of $H$
+    at the identity to some neighborhood of
+    $\mathfrak{h}$ at the identity. Then
+    $(H \cap U, \exp^{-1}\big|_H)$ is a chart, and
+    we can use left translation to get a chart for
+    any other $h \in H$~\cite{Wang}. 
+    %  Zuoqin Wang http://staff.ustc.edu.cn/~wangzuoq/Courses/13F-Lie/Notes/Lec%2011.pdf
+\end{proof}
+
+\begin{cor} Let $G$ be a matrix Lie group with Lie
+algbebra $\g$ and let $k$ be the dimension of $\g$
+as a real vector space. Then $G$ is a smooth
+submanifold of $M(n)$ of dimension $k$ and hence a
+Lie group according to~\ref{def2}.
+\end{cor}
+\begin{proof}
+In the interest of space, this proof, fairly
+tedious, is omitted, with a reference to
+(\cite{Hall}, 71).
+\end{proof}
+
+\begin{cor}
+    Suppose $G \subseteq GL(n)$ is a matrix Lie
+    group with corresponding Lie algebra $\g$.
+    Then $X \in \g$ if and only if $\exists
+    \gamma$ a smooth curve in $M(n)$ with
+    $\gamma(t) \in G, \forall t$ and such that
+    $\gamma(0) = I$ and $d\gamma/dt|_{t=0} = X$.
+\end{cor}
+\begin{proof}
+The forward direction is easy. Define
+$\gamma(t) = \exp(tX)$. Then $\gamma(0) = I$
+and $d\gamma/dt|_{t=0}=X$ by properties of
+$\exp$ already established. In the other
+direction, let $\gamma(t)$ be smooth with
+$\gamma(0) = I$. For sufficiently small $t$,
+$\gamma(t) = \exp(\delta(t))$, where $\delta$
+is a smooth curve in $\g$. The derivative of
+$\delta(t)$ at $t = 0$ is the same as the
+derivative of $f(t): t \mapsto t \delta^{\prime}(0)$
+at $t = 0$. This trick simplifies the algebra.
+Then by the chain rule
+\[\begin{aligned}
+    \gamma^\prime(0) & = \frac{d}{dt}\exp(\delta(t))\Big|_{t=0} \\
+    & = \frac{d}{dt}\exp(f(t))\Big|_{t=0} \\
+    & = \frac{d}{dt}\exp(t\delta^\prime(0))\Big|_{t=0} \\
+    & = \delta^\prime(0).
+\end{aligned}\] Now $\gamma(t) \in G$ by construction, and $\exp(\delta(t)) = \gamma(t)$ for sufficiently small $t$, so $\delta(t) \in \g$ for sufficiently small $t$ by the definition of $\g$. Then also $\delta^\prime(0) \in \g$, so $\gamma^\prime(0) \in \g$.
+\end{proof}
+
+\begin{rmk}
+    This means that $\g$ is the tangent space at
+    the identity to $G$. Many textbooks work the
+    other way, defining the Lie algebra as the
+    tangent space at the identity and recovering
+    other properties we already have.
+\end{rmk}
+
+To prove the next corollary, we require the
+following lemma, which we state but do not prove.
+
+\begin{lem}\label{lem:3.46}
+    Suppose $A: [a, b] \to GL(n)$ is continuous.
+    Then $\forall \varepsilon > 0, \exists \delta >
+    0$ such that for $s, t$ where $|s-t| <
+    \delta$, $\V A(s) {A(t)}^{-1}-I \V < \varepsilon$.
+\end{lem}
+
+\begin{cor}\label{cor:3.47}
+    If $G$ is a connected matrix Lie group, then
+    every element $A$ of $G$ can be written in the
+    form $A = \exp(X_1)\hdots\exp(X_m)$
+    for $X_1, \hdots, X_m \in \g$.
+\end{cor}
+\begin{proof}
+\par{Let $V_\varepsilon = \exp(U_\varepsilon)$ for
+$U_\varepsilon$ a neighborhood of $0$, as
+in~\ref{them:3.42}. For $A \in G$, define a
+continuous path $\gamma: [0,1] \to G$ where
+$\gamma(0) = I$ and $\gamma(1) = A$.
+By~\ref{lem:3.46}, we can pick $\delta > 0$
+such that ${\gamma(s)\gamma(t)}^{-1} \in
+V_\varepsilon$ for $|s - t| < \delta$.}
+
+\par{Next, we partition $[0,1]$ into $m$ pieces of
+size $1/m$, choosing $m$ so that $1/m < \delta$.
+Then for $j \in \{1, \hdots, m\}$,
+${\gamma((j-1)/m)}^{-1}\gamma(j/m) \in
+V_\varepsilon$ because the two arguments are
+within $\delta$ of each other. This implies that
+\[
+{\gamma((j-1)/m)}^{-1}\gamma(j/m) = \exp(X_j)
+\] for some element $X_j \in \g$. Then
+\[
+\begin{aligned}
+A & = \gamma(1) \\
+& = \gamma(0) {\gamma(0)}^{-1} \gamma(1) \\
+& = I \cdot {\gamma(0)}^{-1} \gamma(1) \\
+& = {\gamma(0)}^{-1} \gamma(1) \\
+& = {\gamma(0)}^{-1} \gamma(1/m) 
+{\gamma(1/m)}^{-1} \hdots \gamma((m-1)/m)
+{\gamma((m-1)/m)}^{-1} \gamma(1) \\
+& = \exp(X_1) \hdots \exp(X_m) 
+\end{aligned}\]
+
+for $X_1, \hdots
+X_m$ as constructed earlier.}   
+\end{proof}
+
+\begin{cor}
+    If $G$ is a connected matrix Lie group and the
+    Lie algebra $\g$ of $G$ is commutative, then
+    $G$ is commutative.
+\end{cor}
+\begin{proof}
+    Since $\g$ is commutative, any two elements of
+    $G$, when written as in~\ref{cor:3.47}, will commute.
+\end{proof}
+
+\begin{cor}
+    If $G$ is a matrix Lie group, the identity
+    component $G_0 \subseteq G$ is a closed
+    subgroup of $GL(n)$ and thus a matrix Lie
+    group. Moreover, $\g_0 = \g$.
+\end{cor}
+\begin{proof}
+\par{Take $\{A_m\}$, a sequence in $G_0$ converging to
+some $A \in GL(n)$. If $G$ is a matrix Lie group,
+then $G$ is closed under nonsingular limits
+by~\ref{def3}, so $A \in G$. Moreover, $A_m
+A^{-1} \in G$ for all $m$ because $G$ is a group.
+Also, $A_m A^{-1} \to I$ as $m \to \infty$ because
+$A_m \to A$. By~\ref{them:3.42}, $A_m A^{-1} =
+\exp(X)$ for $X \in \g$ for $m$ large enough.
+Left-multiplying by $\exp(-X)$ and
+right-multiplying by $A$ gives $\exp(-X) A_m = A$.
+Because $A_m \in G_0$ by construction, there is a
+path joining $I$ to $G_0$. Since $\exp(-X)A_m =
+A$, the path $\exp(-tX) A_m$ connects $A_m$ to
+$A$, letting $t: 0 \to 1$. Combining this path
+with the path from $I$ to $A_m$ provides a path
+from $I$ to $A$, so $A \in G_0$. Therefore, $G_0$
+is a closed subgroup of $GL(n)$, so it is a matrix
+Lie group.}
+
+\par{Now, since $G_0 \subseteq G$, it follows that
+$\g_0 \subseteq \g$. Now, pick an arbitrary
+element $X$ from $\g$. By the definition of $\g$,
+we have $\exp(tX) \in G, \forall t \in \R$.
+Consider an arbitrary element $Y = \exp(t_0X) \in
+G$. Then $\exp(tX)$ connects $I$ to $Y$, letting
+$t: 0 \to t_0$. Then $\g \subseteq \g_0$.
+Therefore, $\g_0 = \g$.}
+\end{proof}
+
+\section{Examples.}
+
+\par{I am not sure how to select the curriculum
+for this somewhat artificial crash course on Lie
+groups and Lie algebras. I hope that the preceding
+section will give the reader some familiarity with
+the basics of the correspondence between Lie
+groups and Lie algebras. The original intention of
+this section was to conclude by providing several
+interesting examples. Here, I have kept the proofs
+of the closure of the classical matrix groups but
+removed all the examples I had of Lie groups that
+are not matrix Lie groups.}
+
+\par{I am more than happy to include these in my
+final paper if you reviewers believe that the
+exposition would be aided by examples that resist
+the matrix-based approach. I thought it was a nice
+and tidy to finish with proofs that the classical
+groups are in fact matrix Lie groups, but I defer
+to your preferences. The proofs that these are not
+matrix Lie groups are pretty slick, but I doubted
+that anyone would complain that this paper lacked
+length, so I have excluded them for now.}
+
+\par{The following proofs all go through very
+similarly: we prove that each matrix group is the
+preimage of a continuous function to a closed
+set.}
+
+\begin{them}$SL(n)$ is closed.\end{them}
+\begin{proof}
+    \par{The determinant map $\det: GL(n) \to
+    \R^2$ is a polynomial in the entries of the
+    input. The set $\{1\}$ is closed in $\C$. By
+    definition $SL(n) = \{\det^{-1}(\{1\})\}$.}
+    \par{$\therefore SL(n)$ is the preimage of a
+    continuous function to a closed set, so it is
+    closed.}
+\end{proof}
+    
+\begin{them}$\son$ is closed.\end{them}
+\begin{proof}
+    \par{The determinant map $\det: GL(n, \R) \to
+    \R$ is a polynomial in the entries of the
+    input. Define $L: M(n, \R) \to M(n, \R)$ by
+    $L(M) = M^T M$ and $R: M(n, \R) \to M(n, \R)$
+    by $R(M) = MM^T$. The sets $\{1\}$ and $\{I\}$
+    are closed. By definition $\son =
+    \{L^{-1}(\{I\}) \cap R^{-1}(\{I\}) \cap
+    \det^{-1}(\{1\})\}$.} \par{$\therefore \son$
+    is the finite intersection of the preimage of
+    continuous functions to closed sets, so it is
+    closed (\cite{freakish}).}
+\end{proof}
+
+\begin{them}$SU(n)$ is closed.\end{them}
+\begin{proof}
+    This proof is identical to that for $\son$,
+    \textit{mutatis mutandis}.
+\end{proof}
+
+\begin{them}$SP(n)$ is closed.\end{them}
+\begin{proof}
+    \par{Define $S: M(2n) \to M(2n)$ by $S(M) =
+    A^T \Om A - \Om$. $S$ is a polynomial in the
+    entries of the input, so it is continuous. The
+    set $\{0\}$ is closed in $M(2n)$. By
+    definition $SP(2n) = S^{-1}(\{0\})$.}
+    \par{$\therefore SP(2n)$ is the preimage of a
+    continuous function to a closed set, so it is
+    closed (\cite{Heuber}).}
+\end{proof}
+
+Then, by~\ref{cor:csg}, these classical matrix
+groups are Lie subgroups and therefore also
+submanifolds of $GL(n)$ (or $GL(n, \R)$ in the case
+of $\son$.)
+
+\par{The following is a consequence of Peter-Weyl.}
+\begin{them}
+    All compact Lie groups
+    are matrix groups.
+\end{them}
+\par{As this theorem suggests, there are
+non-compact Lie groups that do not have faithful
+representations as matrices. The most common
+example of such a Lie group is the universal cover
+of $SL(2)$. Another example, slightly easier to
+show, is the quotient of the Heisenberg group $H$,
+defined as
+\[M \in M(n, \R) = \Bigg\{
+\begin{pmatrix}
+    1&a&c\\
+    0&1&b\\
+    0&0&1\\
+\end{pmatrix} \Bigg\} \] 
+by the discrete normal subgroup $N$
+\[
+    N \in H \cap M(n,\Z) = \Bigg\{
+\begin{pmatrix}
+    1&0&n\\
+    0&1&0\\
+    0&0&0\\
+\end{pmatrix} \Bigg\}
+\] is not a matrix Lie group.}
+
+\vspace{6pt}
+\par{In any event, thank you for taking the time
+to read this, and I look forward to improving with
+your feedback! $\heart \square$}
+
+\begin{thebibliography}{9}
+\bibitem{Hall}
+{Brian C. Hall (2015), \emph{Lie Groups, Lie Algebras,
+and Representations: An Elementary
+Introduction}, Springer Graduate Texts in Mathematics.}
+
+\bibitem{Tu}
+Loring C. Tu (2011), \emph{An Introduction to Manifold},
+Springer Universitexts.
+
+\bibitem{Heuber}
+B.Heuber \emph{Show that the symplectic group
+$\mathrm{Sp}(2n,\mathbb{C})$ is a closed sub group
+of $\mathrm{Gl}(2n,\mathbb{C})$}, URL (version
+2020--11--08): https://bit.ly/3Jj2O7n, Mathematics Stack Exchange.
+
+\bibitem{freakish}
+Freakish, \emph{Showing SO(n) is a compact
+topological group for every n.}, URL (version
+2023--05--18): https://bit.ly/4cTQ6cV, Mathematics Stack
+Exchange.
+
+\bibitem{Wang}
+Zuoqin Wang, \emph{Lecture 11: Cartan’S Closed
+Subgroup Theorem}, URL https://bit.ly/3PX0AhF.
+\end{thebibliography}
+\end{document}

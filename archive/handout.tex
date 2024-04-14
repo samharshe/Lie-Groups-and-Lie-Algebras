@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm} 
+\usepackage[dvips,letterpaper,margin=1in,bottom=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage{newtx}
+\usepackage{upgreek}
+\usepackage{fancyhdr}
+\usepackage{lipsum}% just to generate some text
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\sun}{SU (n, \C)}
+\newcommand{\son}{SO (n, \R)}
+\newcommand{\Om}{\Omega}
+\newcommand{\V}{\Vert}
+\newcommand{\ihat}{\boldsymbol{\hat{\textbf{\i}}}}
+\newcommand{\jhat}{\boldsymbol{\hat{\textbf{\j}}}}
+\newcommand{\khat}{\boldsymbol{\hat{\textbf{k}}}}
+\usepackage{hyperref}
+\theoremstyle{definition}
+\newtheorem{them}{Theorem}
+\newtheorem{prop}[them]{Proposition}
+\theoremstyle{definition}
+\newtheorem{lem}[them]{Lemma}
+\theoremstyle{definition}
+\newtheorem{rmk}[them]{Remark}
+\theoremstyle{definition}
+\newtheorem{defn}[them]{Definition}
+\theoremstyle{definition}
+\newtheorem{ex}[them]{Example}
+\theoremstyle{definition}
+\newtheorem{cex}[them]{Counter-example}
+\theoremstyle{definition}
+\setlength{\parindent}{0cm}
+
+\fancyhf{}
+\fancyhead[L]{Samuel Harshe}
+\fancyhead[R]{MATH 480}
+\fancyhead[C]{\rule[-3ex]{0pt}{3ex} \textbf{Lie Groups \& Lie Algebras}}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+
+\begin{document}
+\par{Because I covered much less ground than I had hoped to in my lecture on Monday, I have stated several crucial results about the matrix exponential function in this handout. Taking these results as given, my presentation will get straight to its most important results, establishing the correspondence between Lie groups and Lie algebras.}
+
+\begin{rmk} All matrices in this lecture are
+complex unless otherwise noted. Nearly all results
+hold for real matrices as well, though.
+\end{rmk}
+
+\par{We begin with a statement of Ado’s Theorem, which I stated correctly last class only after a helpful correction from Alex. This is an important result in demonstrating the power of matrix Lie theory, but it will not be employed anywhere in this presentation.}
+\begin{them} Every finite-dimensional Lie algebra $\g$
+over a field $\K$ of characteristic zero is
+isomorphic to a Lie algebra of square matrices under
+the commutator bracket.
+\end{them}
+
+\begin{them} Several important properties of
+the matrix exponential function.
+\begin{enumerate}
+    \item $\exp(0)= I$.
+    \item If $XY = YX$, $\exp(X + Y) = \exp(X)\exp(Y) = \exp(Y)\exp(X)$.
+    \item ${\exp(X)}^{-1} = {\exp(-X)}$.
+    \item $\exp((\alpha +\beta)X) = \exp(\alpha X)
+    \cdot \exp(\beta X)$ for $\alpha, \beta \in
+    \C$. 
+    \item $\forall C \in GL(n)$, $\exp(CXC^{-1}) = C\exp(X)C^{-1}$.
+\end{enumerate}
+\end{them}
+\par{Note that (3) implies that $\exp(X) \in GL(n)$.}
+
+\begin{them}
+Let $X \in M(n)$. Then for $t \in \R$,
+$\exp(tX)$ is a smooth curve in
+$M(n)$, and 
+\[
+    \frac{d}{dt} \exp(tX) = X\exp(tX) = \exp(tX)X.
+\] This implies
+\[
+    \frac{d}{dt} \exp(tX) \Big|_{t=0} = X,
+\] since $\exp(0) = I$.
+\end{them}
+
+\begin{them}
+    For all $X, Y \in M(n)$, we have
+\[
+    \exp(X+Y) = \lim_{m\to\infty} (\exp(X/m)\exp(Y/m))^m.
+\]
+\end{them}
+
+\begin{them} $\forall X \in M(n)$,
+\[
+    \det(\exp(X)) = e^{tr(X)}.
+\]
+\end{them}
+
+\vspace{6pt}
+\par{With the matrix exponential and logarithm functions defined and partially described, we can now define one-parameter subgroups, which are used in generating the Lie algebra of a Lie group.}
+\begin{defn} A one-parameter subgroup
+of $GL(n)$ is a group homomorphism $\gamma: \R^{+} \to
+GL(n)$. This implies the following: 
+\begin{itemize}
+    \item $\gamma$ is continuous.
+    \item $\gamma(0) = I$.
+    \item $\gamma(t+s) = \gamma(t)\gamma(s)$.
+\end{itemize}
+\end{defn}
+
+\begin{them} If $\gamma$ is a one-parameter
+subgroup of $GL(n)$, there exists a unique $n
+\times n$ matrix $X$ such that $\gamma(t) = \exp(tX)$.
+\end{them}
+
+\begin{prop} The exponential map $\exp(X)$ is smooth
+(infinitely differentiable).
+\end{prop}
+\par{We have already
+proven that if we fix $X$, then $\exp(tX)$ is a
+smooth function on $\R$. The present proposition
+is different: we are proving that we can take the directional
+derivative in the direction of an arbitrary
+matrix, which is stronger than taking the
+derivative with respect to the parameter $t$.}
+
+\begin{prop} For $X \in GL(n)$,
+$\exists A \in M(n): \exp(A) = X$.
+\end{prop}
+\par{This is interesting but
+never used in the lecture.}
+
+\end{document}
