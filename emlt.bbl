@@ -1,0 +1,58 @@
+\begin{thebibliography}{10}
+
+\bibitem{Tu}
+Loring~C. Tu.
+\newblock {\em An Introduction to Manifolds}.
+\newblock Springer Universitexts, 2011.
+
+\bibitem{Hall}
+Brian~C. Hall.
+\newblock {\em Lie Groups, Lie Algebras, and Representations: An Elementary Introduction}.
+\newblock Springer Graduate Texts in Mathematics, 2015.
+
+\bibitem{Neretin}
+Yurii~A. Neretin.
+\newblock A construction of finite-dimensional faithful representation of {L}ie algebra.
+\newblock In {\em Proceedings of the 22nd Winter School Geometry and Physics}, pages 159--161. Circolo Matematico di Palermo, 2003.
+
+\bibitem{Blanes}
+Sergio Blanes and Fernando Casas.
+\newblock On the convergence and optimization of the {Baker--Campbell--Hausdorff} formula.
+\newblock {\em Linear Algebra and its Applications}, 378:135--158, 2004.
+
+\bibitem{Munkres}
+James~R. Munkres.
+\newblock {\em Analysis on Manifolds}.
+\newblock Advanced Book Classics, 1991.
+
+\bibitem{Wang}
+Zuoqin Wang.
+\newblock Lecture 11: Cartan’s closed subgroup theorem.
+\newblock https://bit.ly/3PX0AhF.
+
+\bibitem{LieThree}
+nLab.
+\newblock Lie’s three theorems.
+\newblock https://bit.ly/3Uv5HqT.
+
+\bibitem{Serre}
+J.P Serre.
+\newblock {\em Lie Algebras and Lie Groups}.
+\newblock W. A. Benjamin, Inc., 1992.
+
+\bibitem{freakish}
+Freakish.
+\newblock Showing {SO(n)} is a compact topological group for every $n$.
+\newblock https://bit.ly/4cTQ6cV (2023-05-18).
+
+\bibitem{Heuber}
+B.Hueber.
+\newblock Show that the symplectic group $\mathrm{Sp}(2n,\mathbb{C})$ is a closed sub group of $\mathrm{Gl}(2n,\mathbb{C})$.
+\newblock https://bit.ly/3Jj2O7n (2020-11-08).
+
+\bibitem{Knapp}
+A.W. Knapp.
+\newblock {\em Lie Groups Beyond an Introduction}.
+\newblock Birkhäuser, 1996.
+
+\end{thebibliography}
